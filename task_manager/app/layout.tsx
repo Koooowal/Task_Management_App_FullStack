@@ -4,6 +4,7 @@ import "./globals.css";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import GlobalStylesProvider from "./Providers/GlobalStylesProvider";
 import ContextProvider from "./Providers/ContextProvider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,6 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <head>
         <link
@@ -42,10 +44,13 @@ export default function RootLayout({
         <ContextProvider>
           <GlobalStylesProvider>
             <Sidebar/>
-            {children}
+            <div className="w-full">
+              {children}
+            </div>
           </GlobalStylesProvider>
         </ContextProvider>
       </body>
     </html>
+    </ClerkProvider>
   );
 }
